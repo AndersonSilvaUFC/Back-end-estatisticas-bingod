@@ -19,9 +19,12 @@ import br.com.bingod.models.Cartela;
 import br.com.bingod.models.Estatistica;
 import br.com.bingod.models.Jogo;
 import br.com.bingod.repositories.JogoRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
+@Api(value = "API Rest Jogos")
 @CrossOrigin(origins="*")
 public class JogoController {
 	@Autowired
@@ -34,11 +37,13 @@ public class JogoController {
 	private EstatisticaController estatisticaController;
 	
 	@GetMapping("/jogos")
+	@ApiOperation(value="Retorna a lista de jogos cadastradas")
 	public ResponseEntity<Object> listarJogos(){
 		return new ResponseEntity<>(jogoRepository.findAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/jogo")
+	@ApiOperation(value="Cadastra um novo jogo e atualiza as estatisitas e cartelas envolvidas")
 	public ResponseEntity<Object> cadastraJogo(@RequestBody @Valid Jogo jogo){	
 		List<Estatistica> estatisticas = (List<Estatistica>) estatisticaController.listarEstatisticas().getBody();
 		Estatistica estatistica;
