@@ -15,12 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.bingod.models.Estatistica;
 import br.com.bingod.repositories.EstatisticaRepository;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api")
-@Api(value="API REST Estatística")
 @CrossOrigin(origins="*")
 public class EstatisticaController {
 	
@@ -28,13 +25,11 @@ public class EstatisticaController {
 	private EstatisticaRepository estatisticaRepository;
 	
 	@GetMapping("/estatisticas")
-	@ApiOperation(value="Retorna uma lista com apenas uma instância de estatística")
 	public ResponseEntity<Object> listarEstatisticas(){
 		return new ResponseEntity<>(estatisticaRepository.findAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping("/estatistica")
-	@ApiOperation(value="Cadastra uma instância de estatística")
 	public ResponseEntity<Object> cadastraEstatistica(@RequestBody Estatistica estatistica){
 		List<Estatistica> lista = estatisticaRepository.findAll();
 		if(!lista.isEmpty()) {
@@ -46,7 +41,6 @@ public class EstatisticaController {
 	}
 	
 	@PutMapping("/estatistica")
-	@ApiOperation(value="Atualiza as estatísticas")
 	public ResponseEntity<Object> atualizaEstatistica(@RequestBody Estatistica estatistica){
 		List<Estatistica> lista = estatisticaRepository.findAll();
 		if(lista.isEmpty()) {
